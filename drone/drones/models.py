@@ -48,9 +48,8 @@ class Competition(models.Model):
     max_distance=models.IntegerField()
 
     pilot=models.ForeignKey(Pilot,on_delete=models.CASCADE,related_name='competition')
-    drone=models.ForeignKey(Drone,on_delete=models.CASCDE)
+    drone=models.ForeignKey(Drone,on_delete=models.CASCADE)
 
 
     def __str__(self):
         return self.name
-    
