@@ -45,4 +45,4 @@ class PilotCompetitionsSerializer(serializers.HyperlinkedModelSerializer):
         model=Competition
         fields=('url','pk','max_distance','pilot','drone')
 
-        
+
