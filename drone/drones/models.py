@@ -15,7 +15,7 @@ class Drone(models.Model):
     name=models.CharField(max_length=256)
     description=models.TextField()
     has_it_competed=models.BooleanField(default=False)
-    category=models.ForeignKey(DroneCategory,related_name='drones',on_delete=models.CASCADE)
+    category=models.ForeignKey(DroneCategory,on_delete=models.CASCADE,related_name='drones')
 
     class Meta:
         ordering=['name']
