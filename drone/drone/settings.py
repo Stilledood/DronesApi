@@ -51,6 +51,11 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+REST_FRAMEWORK={
+    'DEFAULT_PAGINATION_CLASS':'drones.custompagination.LimitOffsetPaginationUpperBound',
+    'PAGE_SIZE':4
+}
+
 ROOT_URLCONF = 'drone.urls'
 
 TEMPLATES = [
