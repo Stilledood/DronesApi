@@ -10,6 +10,9 @@ class DroneCategoryList(generics.ListCreateAPIView):
 
     queryset = DroneCategory.objects.all()
     serializer_class = DroneCategorySerializer
+    filter_fields=('name',)
+    search_fields=('^name',)
+    ordering_fields=('name',)
 
 
 
@@ -27,6 +30,10 @@ class DroneList(generics.ListCreateAPIView):
     serializer_class = DroneSerializer
     name='drone-list'
 
+    search_fields=('^name','^category',)
+    ordering_fields=('name','category',)
+    filter_fields=('name','category',)
+
 
 class DroneDetail(generics.RetrieveUpdateDestroyAPIView):
 
@@ -41,6 +48,10 @@ class PilotList(generics.ListCreateAPIView):
     serializer_class = PilotSerializer
     name='pilot-list'
 
+    search_fields=('^name','^gender',)
+    ordering_fields=('name',)
+    filter_fields=('name',)
+
 
 class PilotDetail(generics.RetrieveUpdateDestroyAPIView):
 
@@ -54,6 +65,10 @@ class CompetitionList(generics.ListCreateAPIView):
     queryset = Competition.objects.all()
     serializer_class = PilotCompetitionsSerializer
     name='competition-list'
+
+    search_fields=('^name',)
+    filter_fields=('name','max_distance',)
+    ordering_fields=('name','max_distance',)
 
 
 class CompetitionDetail(generics.RetrieveUpdateDestroyAPIView):
