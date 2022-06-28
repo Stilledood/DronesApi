@@ -4,6 +4,7 @@ from rest_framework import generics
 from .models import *
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
+from django_filters import rest_framework as filters
 
 
 class DroneCategoryList(generics.ListCreateAPIView):
@@ -30,7 +31,7 @@ class DroneList(generics.ListCreateAPIView):
     serializer_class = DroneSerializer
     name='drone-list'
 
-    search_fields=('^name','^category',)
+    search_fields=('^name',)
     ordering_fields=('name','category',)
     filter_fields=('name','category',)
 
@@ -60,15 +61,36 @@ class PilotDetail(generics.RetrieveUpdateDestroyAPIView):
     name='pilot-detail'
 
 
+
+class CompetitionFilters(filters.FilterSet):
+    '''Class to create a custom filter for competitions list'''
+
+    min_distance_competition=filters.NumberFilter(field_name='max_distance',lookup_expr='gte')
+    max_distance_competition=filters.NumberFilter(field_name='max_distance',lookup_expr='lte')
+    drone_name=filters.AllValuesFilter(field_name='drone__name')
+    pilot_name=filters.AllValuesFilter(field_name='pilot__name')
+
+    class Meta:
+        model=Competition
+        fields=('max_distance','min_distance_competition','max_distance_competition','drone_name','pilot_name')
+
+
+
+
+
+
+
 class CompetitionList(generics.ListCreateAPIView):
 
     queryset = Competition.objects.all()
     serializer_class = PilotCompetitionsSerializer
     name='competition-list'
 
-    search_fields=('^name',)
-    filter_fields=('name','max_distance',)
-    ordering_fields=('name','max_distance',)
+    filterset_class=CompetitionFilters
+    ordering_fields=(
+        'max_distance','name'
+    )
+
 
 
 class CompetitionDetail(generics.RetrieveUpdateDestroyAPIView):
