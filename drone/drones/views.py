@@ -7,6 +7,7 @@ from rest_framework.reverse import reverse
 from django_filters import rest_framework as filters
 from rest_framework import permissions
 from .custompermissions import IsCurrentUserOrReadOnly
+from rest_framework.authentication import TokenAuthentication
 
 
 
@@ -64,12 +65,18 @@ class PilotList(generics.ListCreateAPIView):
     ordering_fields=('name',)
     filter_fields=('name',)
 
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (permissions.IsAuthenticated,)
+
 
 class PilotDetail(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = Pilot.objects.all()
     serializer_class = PilotSerializer
     name='pilot-detail'
+
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (permissions.IsAuthenticated,)
 
 
 
