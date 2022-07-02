@@ -15,12 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-from drones import urls as drones_urls
+from drones import urls as drones_urls_v1
+from drones.v2 import urls as drones_urls_v2
 from rest_framework import urls as rest_urls
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/',include(drones_urls)),
-    path('api-auth/',include(rest_urls))
+    path('v1/api',include(drones_urls_v1) ),
+    path('v1/api-auth/',include(rest_urls)),
+    path('v2/api',include(drones_urls_v2)),
+    path('v2/api-auth/',include(rest_urls)),
 ]

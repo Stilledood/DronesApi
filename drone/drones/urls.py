@@ -1,7 +1,10 @@
 from django.urls import path
 from .views import *
 
-urlpatterns=[
+
+app_name='v1'
+
+urlpatterns = [
     path('',ApiRoot.as_view(),name=ApiRoot.name),
     path('categories',DroneCategoryList.as_view(),name='category_list'),
     path('categories/<int:pk>/',DroneCategoryDetail.as_view(),name='dronecategory-detail'),
