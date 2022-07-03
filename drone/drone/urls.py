@@ -16,14 +16,21 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from drones import urls as drones_urls_v1
-from drones.v2 import urls as drones_urls_v2
+#from drones.v2 import urls as drones_urls_v2
 from rest_framework import urls as rest_urls
+from rest_framework.schemas import get_schema_view
+from rest_framework.documentation import include_docs_urls
+
+
+schema_view=get_schema_view(title = 'Drones API',url = 'https://http://127.0.0.1:8000/schema/', urlconf = 'drone.urls')
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('v1/api',include(drones_urls_v1) ),
-    path('v1/api-auth/',include(rest_urls)),
-    path('v2/api',include(drones_urls_v2)),
-    path('v2/api-auth/',include(rest_urls)),
+    path('',include(drones_urls_v1) ),
+    path('/api-auth/',include(rest_urls)),
+   #path('v2/api',include(drones_urls_v2)),
+    #path('v2/api-auth/',include(rest_urls)),
+    path('docs/',include_docs_urls(title='Drone API')),
+    path('schema/',schema_view)
 ]
